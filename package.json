@@ -1,0 +1,19 @@
+{
+  "name": "codeschoolweek3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rylarso/Code-School-Week-3.git"
+  },
+  "author": "Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rylarso/Code-School-Week-3/issues"
+  },
+  "homepage": "https://github.com/Rylarso/Code-School-Week-3#readme"
+}
