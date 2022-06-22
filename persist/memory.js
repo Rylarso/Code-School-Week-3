@@ -27,8 +27,10 @@ const getTodo = function (id) {
 };
 
 const removeId = function (id) {
+    const todo = todo_db[id];
     delete todo_db[id];
-    return todo_db;
+    console.log('Deleted');
+    return todo;
 };
 
 const setTodo = function (id, todo) {
@@ -37,11 +39,10 @@ const setTodo = function (id, todo) {
 };
 
 const patchTodo = function (id, todoData) {
+    // loop over the data and set each individual item
     for (const key in todoData) {
         todo_db[id][key] = todoData[key];
     }
-    const todo = todo_db[id];
-    return todo;
 };
 
 module.exports = {

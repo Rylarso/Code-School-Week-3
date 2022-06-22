@@ -1,57 +1,24 @@
-//initiate the express server
-const express = require('express');
-const app = express();
+//pull in mongo db
+const mongodb = require("./persist/mongo");
 
-app.use(express.json());
+//pull in memory db
+const persist = require("./persist/todo");
 
-//pull in db
-const persist = require("./persist");
+//pull in config
+const config = require("./config");
 
-//put in command line flags
-const flags = require("flags");
-flags.defineNumber("port", 3000, "Ports for the http server to listen");
-flags.parse();
+//set up server/app
+const app = require("./server");
 
-//put in env vars
-const dotenv = require("dotenv");
+//set up todo
+const setTodo = require("./setup");
 
-//set up port number
-const port = flags.get("port") || process.env.PORT || 3000;
 
-//set up server paths and handlers
-app.get("/todo/:id", (req, res) => {
-    const id = req.params.id;
-    const todo = persist.getTodo(id);
-    res.json(todo);
+mongodb.setUpConnectionHandlers(() => {
+    app.listen(config.port, () => {
+        console.log(`Server is running on port ${config.port}`);
+    });
 });
+mongodb.connect();
 
-app.post("/todo", (req, res) => {
-    const id = req.params.id;
-    const todo = persist.getTodo(id);
-    persist.addTodo(req.body);
-    res.send(req.body);
-});
-
-app.delete("/todo/:id", (req, res) => {
-    const id = req.params.id;
-    const todo = persist.removeId(id);
-    res.json(todo);
-});
-
-//sends entire object with a change
-app.put("/todo/:id", (req, res) => {
-    const id = req.params.id;
-    const todo = persist.getTodo(id);
-    res.json(todo);
-});
-
-//sends part of an object with a change
-app.patch("/todo/:id", (req, res) => {
-    const id = req.params.id;
-    const todo = persist.getTodo(id);
-});
-
-//start server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
+setupTodo(persist);
