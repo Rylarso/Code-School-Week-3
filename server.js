@@ -23,6 +23,7 @@ app.post("/todo", (req, res) => {
 });
 
 app.get("/todo/:id", (req, res) => {
+
     const id = req.params.id;
     Todo.findById(id)
         .then((todo) => {

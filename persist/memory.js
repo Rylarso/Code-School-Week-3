@@ -26,6 +26,10 @@ const getTodo = function (id) {
     return todo_db[id];
 };
 
+const getTodos = function () {
+    return todo_db
+};
+
 const removeId = function (id) {
     const todo = todo_db[id];
     delete todo_db[id];
